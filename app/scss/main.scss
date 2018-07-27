@@ -1,0 +1,301 @@
+.clear
+{
+    clear: both;
+}
+
+.main_container
+{
+    display: none;
+    border-radius: 3px;
+    background-color: #f0f0f0;
+    max-width: 95%;
+    width: 720px;
+    height: 540px;
+    position: relative;
+    margin: 0 auto;
+    min-width: 700px;
+}
+
+.header
+{
+    width: 100%;
+    height: 40px;
+    background-color: black;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.canvas
+{
+    max-width: 50%;
+    width: 340px/720px*100%;
+    float: left;
+}
+
+#canvas
+{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
+}
+
+.right_menu
+{
+    float: right;
+    margin: 100px 7px 100px 0;
+    border-top-left-radius: 10px;
+    border-top-style: solid;
+    border-top-width: 7px;
+    border-top-color: red;
+    border-bottom-left-radius: 10px;
+    background: #FFF;
+    opacity: 0;
+    max-width: 50%;
+    width: 0;
+    height: 200px;
+    box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
+    transition: all 1s ease-out 0s;
+    overflow: hidden;
+}
+
+.title
+{
+    text-align: center;
+}
+
+.active
+{
+    opacity: 1;
+    width: 340px/720px*100%;
+}
+
+.hidden
+{
+     color: rgba(0,0,0,0)
+}
+
+.buttons
+{
+    position: relative;
+    margin-left: 50%;
+    margin-top: 450px;
+}
+
+.button
+{
+    float: left;
+    width: 45%;
+    height: 40px;
+    text-decoration: none;
+    text-align: center;
+    line-height: 40px;
+    background-color: green;
+    color: darkturquoise;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.button:hover
+{
+    background-color: darkgreen;
+}
+
+.button:disabled
+{
+    background-color: grey;
+    cursor:default;
+}
+
+.next
+{
+    float: right;
+    margin-right: 5px;
+}
+
+.content
+{
+    width: 540px;
+    height: 800px;
+    display: flex;
+    flex-shrink: 0;
+    flex-direction: column;
+    margin: 0 auto;
+}
+
+.main_title
+{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+    justify-content: space-between;
+    
+    .submit
+    {
+        width: 100px;
+        height: 30px;
+        border: 1px solid #808080;
+        background-color: orange;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .submit:hover
+    {
+        background-color: darkorange;
+    }
+}
+
+.data
+{
+    margin: 10px 0;
+    padding: 20px;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.description
+{
+    textarea
+    {
+        width: 95%;
+        padding: 10px;
+    }
+}
+
+.form_border
+{
+    border: solid 1px #808080;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.input
+{
+    .form_border
+    {
+        height: 30px;
+        line-height: 30px;
+        margin-bottom: 20px;
+    }
+}
+
+
+.form_border:hover
+{
+    background-color: #f0f0f0;
+}
+.input_value
+{
+    input:invalid+span:after
+    {
+        position: absolute;
+        content: '✖';
+        color:red;
+        margin: 2px -5px;
+    }
+
+    input:valid+span:after 
+    {
+        position: absolute;
+        content: '✓';
+        color:green;
+    }
+    ::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    ::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+}
+
+.error
+{
+    border-color: red;
+}
+.input
+{
+    display: flex;
+}
+
+.input_name
+{
+    width: 50%;
+    
+    input
+    {
+        width: 100%;
+    }
+}
+
+.input_value
+{
+    margin-left: 20px;
+    width: 35%;
+    
+    input
+    {
+        width: 80%;
+    }
+    
+    span
+    {
+        position: relative;
+        right: 20px;
+    }
+}
+
+.cross
+{
+    position: relative;
+    width: 24px;
+    height: 24px;
+    background-color: red;
+    border: 1px solid #808080;
+    border-radius: 5px;
+    left: 50px;
+    bottom: 20px;
+    cursor: pointer;
+    
+    img
+    {
+        padding: 4px;
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.button_out
+{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button_plus
+{
+    text-align: center;
+    width: 130px;
+    height: 30px;
+    line-height: 30px;
+    border: solid 1px #808080;
+    border-radius: 5px;
+    cursor: pointer;
+    
+    img
+    {
+        position: relative;
+        left: 5px;
+        top: 3px;
+    }
+}
+
+.button_plus:hover
+{
+    background-color: #f0f0f0;
+}
+.invisible
+{
+    display: none;
+}
