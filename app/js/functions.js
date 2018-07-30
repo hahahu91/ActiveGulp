@@ -1,13 +1,13 @@
 import {CANVAS_WIDTH, CANVAS_HEIGHT, ANIMATION_DURATION, ANIMATE_DY, RADIUS_CHART}  from './constants.js';
 
 function getItemRect(item, start, total) {
-    const radians = (Math.PI * 2) * (item.value / total); // TODO: translate radiant
+    const radians = (Math.PI * 2) * (item.value / total);
     const center = CANVAS_WIDTH / 2;
     const middle = (start + start + radians) / 2;
     const curAnimation = item._animation.currentAnimation;
     const distanceText = RADIUS_CHART + 10 + curAnimation;
     
-    return { // TODO: remove duplicated code
+    return {
         rad: radians,
         cx: center + (distanceText) * Math.cos(middle),
         cy: center + (distanceText) * Math.sin(middle),
@@ -16,8 +16,7 @@ function getItemRect(item, start, total) {
     };
 }
 
-function arctg360(x, y) { // TODO: what means `s`? no-s
-    // TODO: switch, no-var
+function arctg360(x, y) {
     if (y >= 0 && x >= 0) {
         return Math.atan(y / x) * 180 / Math.PI;
     }
@@ -29,7 +28,7 @@ function arctg360(x, y) { // TODO: what means `s`? no-s
     };
 } 
 
-function mouseCoordinates(canvas, event){
+function mouseCoordinates(canvas, event) {
     let margin = canvas.getBoundingClientRect();
     let tempX = event.pageX - canvas.offsetLeft - margin.left;
     let tempY = event.pageY - canvas.offsetTop;
@@ -39,15 +38,15 @@ function mouseCoordinates(canvas, event){
     }
 }
 
-function inRad(degrees){
+function inRad(degrees) {
     return degrees * Math.PI / 180;
 }
 
-function inDeg(radians){
+function inDeg(radians) {
     return radians * 180 / Math.PI;
 }
 
-function showDescription(item){
+function showDescription(item) {
     let decrDiv = document.getElementById('decription'); 
     let title = document.getElementsByClassName('title')[0];
     let paragraph = document.getElementsByClassName('about_item')[0];
@@ -66,7 +65,7 @@ function showDescription(item){
         decrDiv.classList.add('active');
         decrDiv.style.borderTopColor = color;
         title.innerHTML = item.id;
-        paragraph.innerHTML = item.value;
+        paragraph.innerHTML = item.description;
     }
 }
 

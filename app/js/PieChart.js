@@ -14,11 +14,10 @@ export class PieChart {
     }
 
     addItem(item) {
-        console.log(item);
         this._items.push(new Item(
             item.value, this._colors[this._items.length % this._colors.length], this._items.length, item.id, item.description
         ));
-        this.total += value;
+        this.total += item.value;
     }
     setRotation(degree) {
         this._rotationDegree = degree;
@@ -68,21 +67,21 @@ export class PieChart {
         this.setRotation && this.draw(canvasContext);
     }
     
-    activateElement(event, mousePos) { // TODO: Math.hypo
+    activateElement(event, mousePos) {
         const distance = Math.hypot(mousePos.x, mousePos.y);
         if (distance <= (RADIUS_CHART + ANIMATE_DY)) {
             this.activateEl(distance, mousePos);
         }
     }
     
-    activateEl(distance, mousePos){
+    activateEl(distance, mousePos) {
         this._items.forEach((item) => {
             const click = item.check(distance, this.total, mousePos);
             click && processElementClick(this._items, item);
         });
     }
     
-    nextElem(){
+    nextElem() {
         let isActiveIndex = 0;
         this._items.forEach((item, index) => {
             if (item.isActive()) isActiveIndex = index + 1;
@@ -90,7 +89,7 @@ export class PieChart {
         processElementClick(this._items, this._items[isActiveIndex]);
     }
     
-    prevElem(){
+    prevElem() {
         let isActiveIndex = this._items.length - 1;
         this._items.forEach((item, index) => {
             if (item.isActive()) isActiveIndex = index - 1;
@@ -102,8 +101,8 @@ export class PieChart {
 function processElementClick(items, clickedItem) {
     items.forEach((item, index) => {
         let curAnimation = item.animation();
-            
         const isActive = item.isActive();
+        
         if (item == clickedItem) {
             if (isActive) {
                 item.deactivate();
@@ -123,7 +122,7 @@ function processElementClick(items, clickedItem) {
      
 }
 
-function disableButtons(isActiveIndex, maxIndex){
+function disableButtons(isActiveIndex, maxIndex) {
     let prev = document.getElementsByClassName('prev')[0];
     let next = document.getElementsByClassName('next')[0];
     
@@ -139,5 +138,4 @@ function disableButtons(isActiveIndex, maxIndex){
         next.hasAttribute('disabled') && next.removeAttribute('disabled');
         prev.hasAttribute('disabled') && prev.removeAttribute('disabled');
     }
-
 }

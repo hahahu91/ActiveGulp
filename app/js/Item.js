@@ -3,13 +3,13 @@ import {Animation} from './Animation.js';
 import {arctg360, mouseCoordinates, inRad, inDeg, getItemRect} from './functions.js';
 
 export class Item {
-    constructor(value, color, id, description) {
+    constructor(value, color, index, id, description) {
         this.id = id;
         this.index = index;
         this.value = value;
         this.description = description;
         this._color = color;
-        this._animation = new Animation(this, EaseOut);
+        this._animation = new Animation(this); //EasyOut
         this.start = null;
         this.finish = null;
         this._isActive = false;
