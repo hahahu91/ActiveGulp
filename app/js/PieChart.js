@@ -5,7 +5,7 @@ import {arctg360, inRad, inDeg, getItemRect, showDescription, closeDescription} 
 export class PieChart {
     constructor() {
         this._items = [];
-        this._colors = ['red', 'blue', 'green', 'darkgrey', 'brown', 'grey', 'yellow', 'pink'];
+        this._colors = ['#FF0000', '#800000', '#FFFF00', '#808000', '#00FF00', '#008000', '#00FFFF', '#008080', '#0000FF', '#000080', '#FF00FF'];
         this._rotationDegree = 0;
         this.total = 0;
         this.isRecalculation = false;
@@ -19,6 +19,7 @@ export class PieChart {
         ));
         this.total += item.value;
     }
+    
     setRotation(degree) {
         this._rotationDegree = degree;
     }
@@ -27,16 +28,16 @@ export class PieChart {
         return this._rotationDegree;
     } 
     
-    resetRotation(){
+    resetRotation() {
         this._currentState += this._rotationDegree;
         this._rotationDegree = 0;
     }
     
-    setCurRotation(position){
+    setCurRotation(position) {
         this._curRotation = position;
     }
     
-    getCurRotation(){
+    getCurRotation() {
         return this._curRotation;
     }
     
@@ -56,7 +57,7 @@ export class PieChart {
         });
     }
     
-    animate(canvasContext){
+    animate(canvasContext) {
         this._items.forEach((item) => {
             let curAnimation = item.animation();
             if (curAnimation.isAnimation) {
@@ -77,65 +78,74 @@ export class PieChart {
     activateEl(distance, mousePos) {
         this._items.forEach((item) => {
             const click = item.check(distance, this.total, mousePos);
-            click && processElementClick(this._items, item);
+            click && this._processElementClick(this._items, item);
         });
     }
     
     nextElem() {
         let isActiveIndex = 0;
         this._items.forEach((item, index) => {
-            if (item.isActive()) isActiveIndex = index + 1;
+            if (item.isActive()) {
+                if (index == this._items.length - 1) isActiveIndex = 0;
+                else isActiveIndex = index + 1;
+            }
         });
-        processElementClick(this._items, this._items[isActiveIndex]);
+        this._processElementClick(this._items, this._items[isActiveIndex]);
     }
     
     prevElem() {
         let isActiveIndex = this._items.length - 1;
         this._items.forEach((item, index) => {
-            if (item.isActive()) isActiveIndex = index - 1;
+            if (item.isActive()) {
+                if (index == 0)  isActiveIndex = this._items.length - 1;
+                else isActiveIndex = index - 1;
+            }
         });
-        processElementClick(this._items, this._items[isActiveIndex]);
+        this._processElementClick(this._items, this._items[isActiveIndex]);
     }
-}
-
-function processElementClick(items, clickedItem) {
-    items.forEach((item, index) => {
-        let curAnimation = item.animation();
-        const isActive = item.isActive();
-        
-        if (item == clickedItem) {
-            if (isActive) {
-                item.deactivate();
-                closeDescription();
-                disableButtons(1, items.length - 1);
-            }
-            else  {
-                item.activate();
-                showDescription(item);
-                disableButtons(index, items.length - 1);
-            }
-        }
-        else if (isActive) {
-            item.deactivate();
-        }
-    });
-     
-}
-
-function disableButtons(isActiveIndex, maxIndex) {
-    let prev = document.getElementsByClassName('prev')[0];
-    let next = document.getElementsByClassName('next')[0];
     
-    if (isActiveIndex == 0) {
-        prev.setAttribute('disabled', 'disabled');
-        next.hasAttribute('disabled') && next.removeAttribute('disabled');
+    _processElementClick(items, clickedItem) {
+        items.forEach((item, index) => {
+            let curAnimation = item.animation();
+            const isActive = item.isActive();
+
+            if (item == clickedItem) {
+                if (isActive) {
+                    item.deactivate();
+                    closeDescription();
+                    //this._disableButtons(1, items.length - 1);
+                }
+                else  {
+                    item.activate();
+                    showDescription(item);
+                    //this._disableButtons(index, items.length - 1);
+                }
+            }
+            else if (isActive) {
+                item.deactivate();
+            }
+        });
     }
-    else if (isActiveIndex == maxIndex) {
-        next.setAttribute('disabled', 'disabled');
-        prev.hasAttribute('disabled') && prev.removeAttribute('disabled');
-    }
-    else {
-        next.hasAttribute('disabled') && next.removeAttribute('disabled');
-        prev.hasAttribute('disabled') && prev.removeAttribute('disabled');
+    
+    _disableButtons(isActiveIndex, maxIndex) {
+        let prev = document.getElementsByClassName('prev')[0];
+        let next = document.getElementsByClassName('next')[0];
+
+        if (isActiveIndex == 0) {
+            prev.setAttribute('disabled', 'disabled');
+            next.hasAttribute('disabled') && next.removeAttribute('disabled');
+        }
+        else if (isActiveIndex == maxIndex) {
+            next.setAttribute('disabled', 'disabled');
+            prev.hasAttribute('disabled') && prev.removeAttribute('disabled');
+        }
+        else {
+            next.hasAttribute('disabled') && next.removeAttribute('disabled');
+            prev.hasAttribute('disabled') && prev.removeAttribute('disabled');
+        }
     }
 }
+
+
+
+

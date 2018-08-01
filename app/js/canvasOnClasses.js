@@ -8,8 +8,7 @@ export class PieChartController {
         this._ctx = canvasEl.getContext('2d')
         this._canvas.setAttribute('height', CANVAS_HEIGHT);
         this._canvas.setAttribute('width', CANVAS_WIDTH);
-        this._ctx.font = '10px Arial';
-
+        this._ctx.font = 'italic 22pt Arial';
         this._canvas.addEventListener('mousedown', (e) => this._startRecalculation(e), false);
         document.addEventListener('mouseup', (e) => this._stopRecalculation(e), false);
         document.addEventListener('dragend', (e) => this._stopRecalculation(e), false);
