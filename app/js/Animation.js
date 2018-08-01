@@ -28,16 +28,17 @@ export class Animation {
         this.isAnimation = true;
     }
     
-    animate() { // TODO: ease-in, f.e.
+    animate() {
         const start = performance.now();
         if (this._duration > 0) {
             let timeFraction = (start - this._activationTimestamp ) / ANIMATION_DURATION;
             this._duration = ANIMATION_DURATION * ((1 - this._baseProgress) - timeFraction); 
             const progress = timeFraction + this._baseProgress; 
-            const prog = (ANIMATION_DURATION - this._duration) / (ANIMATION_DURATION * (1 -this._baseProgress));
+//            const prog = (ANIMATION_DURATION - this._duration) / (ANIMATION_DURATION * (1 -this._baseProgress));
             this.currentAnimation = this._item.isActive()
                 ? this._fnAnimate(progress) * ANIMATE_DY
                 : ANIMATE_DY - this._fnAnimate(progress)  * ANIMATE_DY;
+            if (this.currentAnimation < 0) this.currentAnimation = 0; 
         }
         else {
             this._duration = 0;

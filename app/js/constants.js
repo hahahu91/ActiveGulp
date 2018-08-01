@@ -1,7 +1,7 @@
-const CANVAS_WIDTH = 340;
-const CANVAS_HEIGHT = 340;
-const ANIMATION_DURATION = 1000;
-const ANIMATE_DY = CANVAS_HEIGHT / 9;
+const CANVAS_WIDTH = 540;
+const CANVAS_HEIGHT = 540;
+const ANIMATION_DURATION = 200;
+const ANIMATE_DY = CANVAS_HEIGHT / 12;
 const RADIUS_CHART = setRadiusPieChart();
 
 export {
@@ -12,8 +12,8 @@ export {
     RADIUS_CHART
 };
 
-function setRadiusPieChart(){
+function setRadiusPieChart() {
     return CANVAS_WIDTH < CANVAS_HEIGHT
-        ? CANVAS_WIDTH / 3
-        : CANVAS_HEIGHT / 3;
+         ? CANVAS_WIDTH / 4
+         : CANVAS_HEIGHT / 4;
 }
