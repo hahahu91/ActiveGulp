@@ -55,7 +55,7 @@ function submitHandler () {
 class Item {
     constructor(name, value, description) {
         this.id = name;
-        this.value = parseInt(value);
+        this.value = parseFloat(value);
         this.description = description;
     }
 }

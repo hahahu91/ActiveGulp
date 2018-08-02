@@ -2,7 +2,7 @@ import {CANVAS_WIDTH, CANVAS_HEIGHT, ANIMATE_DY, RADIUS_CHART}  from './constant
 import {Item} from './Item.js';
 import {arctg360, inRad, inDeg, getItemRect, showDescription, closeDescription} from './canvasFunctions.js';
 
-const ITEMS_COLORS = ['#FF0000', '#800000', '#FFFF00', '#808000', '#00FF00', '#008000', '#00FFFF', '#008080', '#0000FF', '#000080', '#FF00FF'];
+const ITEMS_COLORS = ['#FF0000', '#800000', '#FFFF00', '#808000', '#008000', '#008080', '#0000FF', '#000080', '#FF00FF'];
 
 export class PieChart {
     constructor() {
