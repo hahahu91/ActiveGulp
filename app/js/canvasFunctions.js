@@ -4,7 +4,7 @@ function getItemRect(item, start, total) {
     const radians = (Math.PI * 2) * (item.value / total);
     const center = CANVAS_WIDTH / 2;
     const middle = (start + start + radians) / 2;
-    const curAnimation = item._animation.currentAnimation;
+    const curAnimation = item.getCurAnimation();
     const distanceText = RADIUS_CHART + 45 + curAnimation;
     
     return {
@@ -73,7 +73,6 @@ function closeDescription() {
     let decrDiv = document.getElementById('decription');
     decrDiv.classList.remove('active');
 }
-
 
 export {
     arctg360,

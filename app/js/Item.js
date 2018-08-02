@@ -1,6 +1,7 @@
 import {CANVAS_WIDTH, CANVAS_HEIGHT, ANIMATION_DURATION, ANIMATE_DY, RADIUS_CHART}  from './constants.js';
 import {Animation} from './Animation.js';
-import {arctg360, mouseCoordinates, inRad, inDeg, getItemRect} from './functions.js';
+import {arctg360, mouseCoordinates, inRad, inDeg, getItemRect} from './canvasFunctions.js';
+import {TimingFunctions} from './TimingFunctions.js';
 
 export class Item {
     constructor(value, color, index, id, description) {
@@ -9,28 +10,29 @@ export class Item {
         this.value = value;
         this.description = description;
         this._color = color;
-        this._animation = new Animation(this, EasingFunctions.easeInQuad);
+        this._animation = new Animation(this, TimingFunctions.easeInOutQuad);
         this.start = null;
         this.finish = null;
         this._isActive = false;
     }
-    
     isActive() {
         return this._isActive;
     }
-    
+    getCurAnimation() {
+        return this._animation.getCurAnimate();
+    }
+    isAnimate() {
+        return this._animation.isAnimation();
+    }
     setActive(isActive) {
         this._isActive = isActive;
     }
-    
     setColor(color) {
         this._color = color;
     }
-    
     getColor() {
         return this._color;
     }
-    
     draw(canvasContext, rotationDegree, totalValue) {
         const itemRect = getItemRect(this, rotationDegree, totalValue);
         canvasContext.fillStyle = this._color;
@@ -49,26 +51,22 @@ export class Item {
         canvasContext.shadowBlur = 0;
         this._writePercentages(canvasContext, text, itemRect.cx, itemRect.cy);
     }
-
-    animation() {
-        return this._animation;
+    animate() {
+        this._animation.animate();
     }
-    
     activate() {
         this._animation.activate();
         this._isActive = true;
     }
-    
     deactivate() {
         this._animation.deactivate();
         this._isActive = false;
     }
-    
     check(distance, totalValue, mousePos) {
         const angle = inRad(arctg360(mousePos.x, mousePos.y));
         if ((angle >= this.start && angle < this.finish) || ((this.start > this.finish) && (angle >= this.start || angle < this.finish) )) {
-            let curAnimate = this.animation();
-            if (!curAnimate.isAnimation) {
+            let curAnimate = this._animation.isAnimation();
+            if (!curAnimate) {
                 if (this._isActive) {
                     return this._activElementCheck(this, totalValue, mousePos);
                 }
@@ -94,19 +92,3 @@ export class Item {
         ctx.fillText(text, x, y);
     }
 };
-
-const EasingFunctions = {
-  linear: function (t) { return t },
-  easeInQuad: function (t) { return t*t },
-  easeOutQuad: function (t) { return t*(2-t) },
-  easeInOutQuad: function (t) { return t<.5 ? 2*t*t : -1+(4-2*t)*t },
-  easeInCubic: function (t) { return t*t*t },
-  easeOutCubic: function (t) { return (--t)*t*t+1 },
-  easeInOutCubic: function (t) { return t<.5 ? 4*t*t*t : (t-1)*(2*t-2)*(2*t-2)+1 },
-  easeInQuart: function (t) { return t*t*t*t },
-  easeOutQuart: function (t) { return 1-(--t)*t*t*t },
-  easeInOutQuart: function (t) { return t<.5 ? 8*t*t*t*t : 1-8*(--t)*t*t*t },
-  easeInQuint: function (t) { return t*t*t*t*t },
-  easeOutQuint: function (t) { return 1+(--t)*t*t*t*t },
-  easeInOutQuint: function (t) { return t<.5 ? 16*t*t*t*t*t : 1+16*(--t)*t*t*t*t }
-}

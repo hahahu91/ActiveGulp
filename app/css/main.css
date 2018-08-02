@@ -116,10 +116,13 @@
 .button:hover {
   background-color: darkgreen; }
 
-.button:disabled {
-  background-color: grey;
-  cursor: default; }
-
+/*
+.button:disabled
+{
+    background-color: grey;
+    cursor: default;
+}
+*/
 .next {
   float: right;
   margin: 0 25px; }
@@ -227,12 +230,10 @@
 .input_value input:valid + span:after {
   position: absolute;
   content: '✓';
-  color: green; }
+  color: green;
+  margin: 2px -5px; }
 
-.input_value ::-webkit-inner-spin-button {
-  -webkit-appearance: none; }
-
-.input_value ::-webkit-outer-spin-button {
+.input_value ::-webkit-inner-spin-button, .input_value ::-webkit-outer-spin-button {
   -webkit-appearance: none; }
 
 input[type=number] {
