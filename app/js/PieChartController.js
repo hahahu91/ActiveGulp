@@ -1,74 +1,68 @@
 import {PieChart}  from './PieChart.js';
 import {CANVAS_WIDTH, CANVAS_HEIGHT} from './constants.js';
-import {mouseCoordinates, inRad, arctg360} from './functions.js';
+import {mouseCoordinates, inRad, arctg360} from './canvasFunctions.js';
+const FONT = "italic 22pt Arial";
 
 export class PieChartController {
-    constructor(canvasEl, data) {
-        this._canvas = canvasEl;
-        this._ctx = canvasEl.getContext('2d')
+    constructor(canvasElement, items) {
+        this._canvas = canvasElement;
+        this._ctx = canvasElement.getContext('2d')
         this._canvas.setAttribute('height', CANVAS_HEIGHT);
         this._canvas.setAttribute('width', CANVAS_WIDTH);
-        this._ctx.font = 'italic 22pt Arial';
-        this._canvas.addEventListener('mousedown', (e) => this._startRecalculation(e), false);
-        document.addEventListener('mouseup', (e) => this._stopRecalculation(e), false);
-        document.addEventListener('dragend', (e) => this._stopRecalculation(e), false);
-        document.addEventListener('mousemove', (e) => this._recalculation(e), false);
+        this._ctx.font = FONT;
+        this._canvas.addEventListener('mousedown', (e) => this._startRotating(e), false);
+        document.addEventListener('mouseup', (e) => this._stopRotating(e), false);
+        document.addEventListener('dragend', (e) => this._stopRotating(e), false);
+        document.addEventListener('mousemove', (e) => this._rotating(e), false);
 
         this._pieChart = new PieChart();
-        this._initPieChart(data);
+        this._initPieChart(items);
         this._initButtons();
         
-        
-        const animateFn = () => {
+        const animation = () => {
             this._pieChart.animate(this._ctx);
-            requestAnimationFrame(animateFn);
+            requestAnimationFrame(animation);
         };
-        animateFn();
+        animation();
     }
-    
-    _initPieChart(data) {
-        for (let i = 0; i < data.length; i++){
-            this._pieChart.addItem(data[i]);
+    _initPieChart(items) {
+        for (let i = 0; i < items.length; i++){
+            this._pieChart.addItem(items[i]);
         };
         this._pieChart.draw(this._ctx);
     }
-    
     _initButtons() {
         let next = document.getElementsByClassName('next')[0];
         let prev = document.getElementsByClassName('prev')[0];
 
         next.addEventListener('click', (event) => {
-            event.preventDefault();
-            this._pieChart.nextElem();
+            this._pieChart.nextElement();
         });
         prev.addEventListener('click', (event) => {
-            event.preventDefault();
-            this._pieChart.prevElem();
+            this._pieChart.prevElement();
         });
     }
-    
-    _startRecalculation(event) {
-        this._pieChart.isRecalculation = true;
+    _startRotating(event) {
+        this._pieChart.isRotating = true;
         let mousePos = mouseCoordinates(this._canvas, event);
         const angle = arctg360(mousePos.x, mousePos.y);
         this._pieChart.setCurRotation(angle);
     }
-
-    _recalculation(event) {
-        if (this._pieChart.isRecalculation == true) {
+    _rotating(event) {
+        if (this._pieChart.isRotating == true) {
             const mousePos = mouseCoordinates(this._canvas, event);
             const angle = arctg360(mousePos.x, mousePos.y);
             const prevCur = this._pieChart.getCurRotation();
             let currentAngle = angle - prevCur;
-            if (currentAngle < 0)
+            if (currentAngle < 0) {
                 currentAngle += 360;
+            }
             this._pieChart.setRotation(inRad(currentAngle));
         }
     }
-
-    _stopRecalculation(event) {
+    _stopRotating(event) {
         const mouseMotion = 0.1;
-        this._pieChart.isRecalculation = false;
+        this._pieChart.isRotating = false;
         let mousePos = mouseCoordinates(this._canvas, event);
         let rotation = this._pieChart.getRotationDegree();
         if (rotation < mouseMotion || rotation > Math.PI * 2 - mouseMotion) {

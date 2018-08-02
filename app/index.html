@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="css/reset.min.css">
-    <link rel="stylesheet" href="scss/main.css">
+    <link rel="stylesheet" href="css/main.min.css">
     <title>Canvas</title>
 </head>
 <body>
@@ -25,50 +25,48 @@
                   </div>
                   <div class="cross"><img src="img/cross1.png" alt="cross"></div>
               </div>
-                <div class="description">
-                    <textarea name="description" placeholder="Описание" cols="" rows="10" class="form_border"></textarea>
-                </div>
+                  <div class="description">
+                      <textarea name="description" placeholder="Описание" cols="" rows="10" class="form_border"></textarea>
+                  </div>
            </div>
        </div>
        <div id="data_container">
            <div class="data">
-              <div class="input">
-                 <div class="input_name">
+               <div class="input">
+                   <div class="input_name">
                      <input name=”name” type="text" placeholder="Название"  class="form_border">
-                 </div>
-                  <div class="input_value">
+                   </div>
+                   <div class="input_value">
                       <input name="value" type="number" min="0" placeholder="Значение" class="form_border" required>
-                  </div>
-<!--                  <div class="cross"><img src="img/cross.png" alt="cross"></div>-->
-              </div>
-                <div class="description">
-                    <textarea name="description" placeholder="Описание" cols="" rows="10" class="form_border"></textarea>
-                </div>
+                   </div>
+               </div>
+               <div class="description">
+                   <textarea name="description" placeholder="Описание" cols="" rows="10" class="form_border"></textarea>
+               </div>
            </div>
        </div>
        <div class="button_out">
            <div class="button_plus"><span>Добавить блок +</span></div>
        </div>
-       
     </div>
     <div class="container_out">
        <div class="container">
             <div class="main_container">
                  <div class="header"><h2>PieChard Editor</h2></div>
                  <div class="canvas">
-                    <canvas id= "canvas"></canvas>
+                     <canvas id= "canvas"></canvas>
                  </div>
                  <div class="right_menu" id="decription">
                      <h3 class="title"></h3>
                      <p class="about_item"></p>
                  </div>
             </div>
-             <div class="buttons">
-                 <button href="#" class="button next">NEXT &gt;</button>
-                 <button href="#" class="button prev">&lt; PREV</button>
-             </div>
+            <div class="buttons">
+                <button href="#" class="button next">NEXT &gt;</button>
+                <button href="#" class="button prev">&lt; PREV</button>
+            </div>
        </div>
     </div>
-    <script src="./js/dataCollector.js" type="module"></script>
+    <script src="./js/main.js" type="module"></script>
 </body>
 </html>

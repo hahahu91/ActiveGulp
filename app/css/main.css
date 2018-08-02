@@ -2,25 +2,15 @@
 .clear {
   clear: both; }
 
-.main_container {
-  display: none;
-  -webkit-border-radius: 3px;
-          border-radius: 3px;
-  background-color: #f0f0f0;
-  width: 1080px;
-  height: 540px;
-  position: relative;
-  margin: 10px auto 0; }
-
 .header {
   width: 100%;
   height: 40px;
   background-color: black;
   color: #FFF;
-  -webkit-border-bottom-left-radius: 5px;
-          border-bottom-left-radius: 5px;
-  -webkit-border-bottom-right-radius: 5px;
-          border-bottom-right-radius: 5px;
+  -webkit-border-top-left-radius: 10px;
+          border-top-left-radius: 10px;
+  -webkit-border-top-right-radius: 10px;
+          border-top-right-radius: 10px;
   line-height: 40px; }
   .header h2 {
     margin-left: 20px; }
@@ -37,7 +27,7 @@
 
 .right_menu {
   float: right;
-  margin: 100px 7px 100px 0;
+  margin: 100px 12px 100px 0;
   -webkit-border-top-left-radius: 10px;
           border-top-left-radius: 10px;
   border-top-style: solid;
@@ -62,7 +52,7 @@
 
 .active {
   opacity: 1;
-  width: 320px;
+  width: 450px;
   font-size: 24px;
   padding-left: 10px;
   line-height: 32px;
@@ -73,19 +63,42 @@
   color: rgba(0, 0, 0, 0); }
 
 .container_out {
-  margin-left: 5px;
-  background-color: grey; }
+  display: none;
+  padding: 10px;
+  height: 670px;
+  width: 1120px;
+  background-color: grey;
+  margin: 0 auto;
+  -webkit-border-bottom-left-radius: 10px;
+          border-bottom-left-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+          border-bottom-right-radius: 10px; }
 
 .container {
+  height: 650px;
+  width: 1100px;
+  padding: 10px;
+  background-color: #FFF;
+  -webkit-border-radius: 10px;
+          border-radius: 10px;
+  position: relative; }
+
+.main_container {
+  -webkit-border-radius: 3px;
+          border-radius: 3px;
+  background-color: #f0f0f0;
   width: 1080px;
-  margin: 5px;
-  background-color: #FFF; }
+  height: 600px;
+  margin: 0 auto;
+  -webkit-border-bottom-left-radius: 10px;
+          border-bottom-left-radius: 10px;
+  -webkit-border-bottom-right-radius: 10px;
+          border-bottom-right-radius: 10px; }
 
 .buttons {
   margin-top: 10px;
-  display: none;
-  position: relative;
-  margin-left: 50%; }
+  margin-left: 50%;
+  margin-bottom: 20px; }
 
 .button {
   float: right;
@@ -103,17 +116,20 @@
 .button:hover {
   background-color: darkgreen; }
 
-.button:disabled {
-  background-color: grey;
-  cursor: default; }
-
+/*
+.button:disabled
+{
+    background-color: grey;
+    cursor: default;
+}
+*/
 .next {
   float: right;
   margin: 0 25px; }
 
 .content {
   width: 540px;
-  margin: 37px auto 0;
+  margin: 48px auto 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -154,15 +170,16 @@
       -ms-flex-pack: justify;
           justify-content: space-between; }
   .main_title .submit {
+    display: none;
     width: 100px;
     height: 30px;
-    border: 1px solid #808080;
-    background-color: orange;
+    background-color: #6787ad;
+    color: #FFF;
     -webkit-border-radius: 5px;
             border-radius: 5px;
     cursor: pointer; }
   .main_title .submit:hover {
-    background-color: darkorange; }
+    background-color: #32649f; }
 
 .data {
   font-size: 1em;
@@ -186,14 +203,15 @@
 
 .description textarea {
   width: 95%;
-  padding: 10px; }
+  padding: 10px;
+  resize: none; }
 
 .form_border {
   border: solid 1px #808080;
   -webkit-border-radius: 5px;
           border-radius: 5px;
   padding-left: 10px;
-  color: grey; }
+  color: black; }
 
 .input .form_border {
   height: 30px;
@@ -202,9 +220,6 @@
 
 .form_border:hover {
   background-color: #f0f0f0; }
-
-.form_border:focus {
-  color: black; }
 
 .input_value input:invalid + span:after {
   position: absolute;
@@ -215,13 +230,14 @@
 .input_value input:valid + span:after {
   position: absolute;
   content: '✓';
-  color: green; }
+  color: green;
+  margin: 2px -5px; }
 
-.input_value ::-webkit-inner-spin-button {
+.input_value ::-webkit-inner-spin-button, .input_value ::-webkit-outer-spin-button {
   -webkit-appearance: none; }
 
-.input_value ::-webkit-outer-spin-button {
-  -webkit-appearance: none; }
+input[type=number] {
+  -moz-appearance: textfield; }
 
 .error {
   border-color: red; }
@@ -250,7 +266,7 @@
   position: relative;
   width: 24px;
   height: 24px;
-  background-color: red;
+  background-color: #6787ad;
   border: 1px solid #808080;
   -webkit-border-radius: 5px;
           border-radius: 5px;
@@ -261,6 +277,9 @@
     padding: 4px;
     width: 16px;
     height: 16px; }
+
+.cross:hover {
+  background-color: #32649f; }
 
 .button_out {
   display: -webkit-box;
@@ -275,9 +294,10 @@
 .button_plus {
   text-align: center;
   width: 130px;
-  height: 30px;
-  line-height: 30px;
-  border: solid 1px #808080;
+  margin-bottom: 10px;
+  line-height: 32px;
+  background-color: #55b655;
+  color: #FFF;
   -webkit-border-radius: 5px;
           border-radius: 5px;
   cursor: pointer; }
@@ -287,7 +307,7 @@
     top: 3px; }
 
 .button_plus:hover {
-  background-color: #f0f0f0; }
+  background-color: #2da42d; }
 
 .invisible {
   display: none; }

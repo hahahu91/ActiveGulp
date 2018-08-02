@@ -1,48 +1,49 @@
-import {CANVAS_WIDTH, CANVAS_HEIGHT, ANIMATION_DURATION, ANIMATE_DY, RADIUS_CHART}  from './constants.js';
+import {ANIMATION_DURATION, ANIMATE_DY}  from './constants.js';
 
 export class Animation {
     constructor(item, fn = (x) => x) {
         this._item = item;
-        this.currentAnimation = null;
+        this._currentAnimation = null;
         this._baseProgress = null;
         this._activationTimestamp = null;
         this._duration = null;
-        this.isAnimation = false;
+        this._isAnimation = false;
         this._fnAnimate = fn;
     }
-    
+    getCurAnimate() {
+        return this._currentAnimation;
+    }
+    isAnimation() {
+        return this._isAnimation;
+    }
     activate() {
         this.createAnimation(true);
     }
-    
     deactivate() {
         this.createAnimation(false);
     }
-    
     createAnimation(isActive) {
        this._baseProgress = this._item.isActive()
-           ? (1 - this.currentAnimation / ANIMATE_DY)
-           : (this.currentAnimation / ANIMATE_DY);
+           ? (1 - this._currentAnimation / ANIMATE_DY)
+           : (this._currentAnimation / ANIMATE_DY);
         this._duration = ANIMATION_DURATION * (1 - this._baseProgress);
         this._activationTimestamp = performance.now(); 
-        this.isAnimation = true;
+        this._isAnimation = true;
     }
-    
     animate() {
         const start = performance.now();
         if (this._duration > 0) {
-            let timeFraction = (start - this._activationTimestamp ) / ANIMATION_DURATION;
+            const timeFraction = (start - this._activationTimestamp ) / ANIMATION_DURATION;
             this._duration = ANIMATION_DURATION * ((1 - this._baseProgress) - timeFraction); 
-            const progress = timeFraction + this._baseProgress; 
-//            const prog = (ANIMATION_DURATION - this._duration) / (ANIMATION_DURATION * (1 -this._baseProgress));
-            this.currentAnimation = this._item.isActive()
+            const progress = timeFraction + this._baseProgress;
+            this._currentAnimation = this._item.isActive()
                 ? this._fnAnimate(progress) * ANIMATE_DY
                 : ANIMATE_DY - this._fnAnimate(progress)  * ANIMATE_DY;
-            if (this.currentAnimation < 0) this.currentAnimation = 0; 
+            if (this._currentAnimation < 0) this._currentAnimation = 0; 
         }
         else {
             this._duration = 0;
-            this.isAnimation = false;
+            this._isAnimation = false;
         }
     }
 }
