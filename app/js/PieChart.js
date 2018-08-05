@@ -1,8 +1,13 @@
 import {CANVAS_WIDTH, CANVAS_HEIGHT, ANIMATE_DY, RADIUS_CHART}  from './constants.js';
 import {Item} from './Item.js';
-import {arctg360, inRad, inDeg, getItemRect, showDescription, closeDescription} from './canvasFunctions.js';
+import {getItemRect} from './canvasFunctions.js';
+import {showDescription, closeDescription} from './descriptionFunctions.js';
 
-const ITEMS_COLORS = ['#FF0000', '#800000', '#FFFF00', '#808000', '#008000', '#008080', '#0000FF', '#000080', '#FF00FF'];
+const ITEMS_COLORS =    ["#ef3c42",  "#a7d52a",  "#4b27bd",  "#f6c137",  "#4592ca",
+                        "#f25e40",  "#79c725",  "#7328b6",  "#fad435",  "#3f77c4",
+                        "#f2823a",  "#53c025",  "#b528c5",  "#fdf32f",  "#3a57bf",
+                        "#f69537",  "#52c67f",  "#c32a94",  "#ffff2d",  "#3457bf",
+                        "#f4aa2f",  "#4daecf",  "#dd3371",  "#dff429",  "#3438bd",];
 
 export class PieChart {
     constructor() {
@@ -74,8 +79,12 @@ export class PieChart {
         let isActiveIndex = 0;
         this._items.forEach((item, index) => {
             if (item.isActive()) {
-                if (index == this._items.length - 1) isActiveIndex = 0;
-                else isActiveIndex = index + 1;
+                if (index == this._items.length - 1) {
+                    isActiveIndex = 0;
+                }
+                else {
+                    isActiveIndex = index + 1;
+                }
             }
         });
         this._processElementClick(this._items, this._items[isActiveIndex]);
@@ -84,8 +93,12 @@ export class PieChart {
         let isActiveIndex = this._items.length - 1;
         this._items.forEach((item, index) => {
             if (item.isActive()) {
-                if (index == 0)  isActiveIndex = this._items.length - 1;
-                else isActiveIndex = index - 1;
+                if (index == 0)  {
+                    isActiveIndex = this._items.length - 1;
+                }
+                else {
+                    isActiveIndex = index - 1;
+                }
             }
         });
         this._processElementClick(this._items, this._items[isActiveIndex]);

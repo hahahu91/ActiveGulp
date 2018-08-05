@@ -1,7 +1,15 @@
-import {CANVAS_WIDTH, CANVAS_HEIGHT, ANIMATION_DURATION, ANIMATE_DY, RADIUS_CHART}  from './constants.js';
+import {CANVAS_WIDTH, CANVAS_HEIGHT, RADIUS_CHART}  from './constants.js';
 import {Animation} from './Animation.js';
-import {arctg360, mouseCoordinates, inRad, inDeg, getItemRect} from './canvasFunctions.js';
+import {inDegrees, inRad, getItemRect} from './canvasFunctions.js';
 import {TimingFunctions} from './TimingFunctions.js';
+
+const SHADOW_OFFSET_X = 0;
+const SHADOW_OFFSET_Y = 0;
+const SHADOW_BLUR = 25;
+const SHADOW_COLOR = 'rgba(30,30,30, 0.4)';
+const TEXT_BASELINE = 'middle';
+const TEXT_ALIGN = 'center';
+const FILL_STYLE = '#808080';
 
 export class Item {
     constructor(value, color, index, id, description) {
@@ -35,11 +43,12 @@ export class Item {
     }
     draw(canvasContext, rotationDegree, totalValue) {
         const itemRect = getItemRect(this, rotationDegree, totalValue);
+        const text = `${Math.round(100 * this.value / totalValue)}%`;
         canvasContext.fillStyle = this._color;
-        canvasContext.shadowOffsetX = 0;
-        canvasContext.shadowOffsetY = 0;
-        canvasContext.shadowBlur = 25;
-        canvasContext.shadowColor = 'rgba(30,30,30, 0.4)';
+        canvasContext.shadowOffsetX = SHADOW_OFFSET_X;
+        canvasContext.shadowOffsetY = SHADOW_OFFSET_Y;
+        canvasContext.shadowBlur = SHADOW_BLUR;
+        canvasContext.shadowColor = SHADOW_COLOR;
         
         canvasContext.beginPath();
         canvasContext.arc(itemRect.x, itemRect.y, RADIUS_CHART, rotationDegree, rotationDegree + itemRect.rad, false);
@@ -47,7 +56,6 @@ export class Item {
         canvasContext.closePath();
         canvasContext.stroke();
         canvasContext.fill();
-        const text = `${Math.round(100 * this.value / totalValue)}%`;
         canvasContext.shadowBlur = 0;
         this._writePercentages(canvasContext, text, itemRect.cx, itemRect.cy);
     }
@@ -63,7 +71,7 @@ export class Item {
         this._isActive = false;
     }
     check(distance, totalValue, mousePos) {
-        const angle = inRad(arctg360(mousePos.x, mousePos.y));
+        const angle = inRad(inDegrees(mousePos.x, mousePos.y));
         if ((angle >= this.start && angle < this.finish) || ((this.start > this.finish) && (angle >= this.start || angle < this.finish) )) {
             let curAnimate = this._animation.isAnimation();
             if (!curAnimate) {
@@ -81,14 +89,14 @@ export class Item {
         const activeX = mousePos.x - rect.x + CANVAS_WIDTH / 2;
         const activeY = mousePos.y - rect.y + CANVAS_HEIGHT / 2;
         const distance = Math.hypot(activeX, activeY);
-        const angle = inRad(arctg360(activeX, activeY));
+        const angle = inRad(inDegrees(activeX, activeY));
 
         return (((item.start <= angle && angle < item.finish) || (item.start > item.finish) && (item.start <= angle || angle < item.finish)) && distance <= RADIUS_CHART)
     }
     _writePercentages(ctx, text, x, y) {
-        ctx.textBaseline = 'middle';
-        ctx.textAlign = 'center';
-        ctx.fillStyle = '#808080';
+        ctx.textBaseline = TEXT_BASELINE;
+        ctx.textAlign = TEXT_ALIGN;
+        ctx.fillStyle = FILL_STYLE;
         ctx.fillText(text, x, y);
     }
 };
