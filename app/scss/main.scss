@@ -47,10 +47,12 @@
     opacity: 0;
     max-width: 50%;
     width: 0;
-    height: 200px;
+    min-height: 200px;
+    max-height: 450px;
+    //overflow: scroll;
     box-shadow: 0.4em 0.4em 5px rgba(122,122,122,0.5);
     transition: all 0.3s ease-out 0s;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .title
@@ -63,8 +65,7 @@
     opacity: 1;
     width: 450px;
     font-size: 24px;
-    padding-left: 10px;
-    line-height: 32px;
+    padding: 10px;
     color: rgb(85,85,85);
     font-family: 'Open Sans', sans-serif;
 }
@@ -132,14 +133,6 @@
 {
     background-color: darkgreen;
 }
-
-/*
-.button:disabled
-{
-    background-color: grey;
-    cursor: default;
-}
-*/
 
 .next
 {
