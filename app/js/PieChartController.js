@@ -1,6 +1,6 @@
 import {PieChart}  from './PieChart.js';
 import {CANVAS_WIDTH, CANVAS_HEIGHT} from './constants.js';
-import {mouseCoordinates, inRad, arctg360} from './canvasFunctions.js';
+import {mouseCoordinates, inRad, inDegrees} from './canvasFunctions.js';
 const FONT = "italic 22pt Arial";
 
 export class PieChartController {
@@ -44,14 +44,14 @@ export class PieChartController {
     }
     _startRotating(event) {
         this._pieChart.isRotating = true;
-        let mousePos = mouseCoordinates(this._canvas, event);
-        const angle = arctg360(mousePos.x, mousePos.y);
+        const mousePos = mouseCoordinates(this._canvas, event);
+        const angle = inDegrees(mousePos.x, mousePos.y);
         this._pieChart.setCurRotation(angle);
     }
     _rotating(event) {
-        if (this._pieChart.isRotating == true) {
+        if (this._pieChart.isRotating) {
             const mousePos = mouseCoordinates(this._canvas, event);
-            const angle = arctg360(mousePos.x, mousePos.y);
+            const angle = inDegrees(mousePos.x, mousePos.y);
             const prevCur = this._pieChart.getCurRotation();
             let currentAngle = angle - prevCur;
             if (currentAngle < 0) {
@@ -63,8 +63,8 @@ export class PieChartController {
     _stopRotating(event) {
         const mouseMotion = 0.1;
         this._pieChart.isRotating = false;
-        let mousePos = mouseCoordinates(this._canvas, event);
-        let rotation = this._pieChart.getRotationDegree();
+        const mousePos = mouseCoordinates(this._canvas, event);
+        const rotation = this._pieChart.getRotationDegree();
         if (rotation < mouseMotion || rotation > Math.PI * 2 - mouseMotion) {
             this._pieChart.activateElement(event, mousePos);
         };

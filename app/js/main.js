@@ -1,31 +1,19 @@
 import {PieChartController} from './pieChartController.js';
-const buttonAdd = buttonAddAndCrossHandler();
-const buttonSubmit = buttonSubmitHadler();
+import {ItemData} from './ItemData.js';
+const buttons = buttonsHandler();
 
-function buttonAddAndCrossHandler() {
+function buttonsHandler() {
     const buttonAddBlock = document.getElementsByClassName('button_plus')[0];
-    buttonAddBlock.addEventListener('click', function(event) {
-        const buttonCreate = document.getElementsByClassName('submit')[0];
-        const block = document.getElementsByClassName('data')[0];
-        const dataContainer = document.getElementById('data_container');
-        const newBlock = block.cloneNode(true);
-        dataContainer.appendChild(newBlock);
-        buttonCreate.style.display = 'block';
-        const closeButton = newBlock.getElementsByClassName('cross')[0];
-        closeButton.addEventListener('click', function(event){
-            closeButton.parentElement.parentElement.remove();
-            const blocks = document.getElementsByClassName('data');
-            if (blocks.length < 3) buttonCreate.style.display = 'none';
-        });
-    });
-}
-function buttonSubmitHadler() {
     const buttonSubmit = document.getElementsByClassName('submit')[0];
+    buttonAddBlock.addEventListener('click', (event) =>{
+         onAddButton();
+    });
     buttonSubmit.addEventListener('click', (event) => {
-        submitHandler();
+        onSubmit();
     });
 }
-function submitHandler () {
+
+function onSubmit () {
     const canvas = document.getElementById('canvas');
     const blocks = document.getElementsByClassName('data');
     let items = [];
@@ -42,7 +30,7 @@ function submitHandler () {
         }
         else {
             blocks[i].querySelector(".input_value input").classList.remove('error');
-            (value) && items.push(new Item(name, value, discr));
+            (value) && items.push(new ItemData(name, value, discr));
         }
     };
     if (correctData && items.length > 0) {
@@ -52,10 +40,20 @@ function submitHandler () {
         const pieChartController = new PieChartController(canvas, items);
     }
 }
-class Item {
-    constructor(name, value, description) {
-        this.id = name;
-        this.value = parseFloat(value);
-        this.description = description;
-    }
+
+function onAddButton(event) {
+    const buttonCreate = document.getElementsByClassName('submit')[0];
+    const block = document.getElementsByClassName('data')[0];
+    const dataContainer = document.getElementById('data_container');
+    const newBlock = block.cloneNode(true);
+    dataContainer.appendChild(newBlock);
+    buttonCreate.style.display = 'block';
+    const closeButton = newBlock.getElementsByClassName('cross')[0];
+    closeButton.addEventListener('click', function(event){
+        closeButton.parentElement.parentElement.remove();
+        const blocks = document.getElementsByClassName('data');
+        if (blocks.length < 3) {
+            buttonCreate.style.display = 'none';
+        }
+    });
 }
